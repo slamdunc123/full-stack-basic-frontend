@@ -16,7 +16,7 @@ const TestItems = ({uri}) => {
 		fetch(`${uri}/api/tests`)
 			.then((res) => res.json())
 			.then((data) => setTestItemsData(data))
-	}, []);
+	}, [uri]);
 	return (
 		<div>
 			TestItems
