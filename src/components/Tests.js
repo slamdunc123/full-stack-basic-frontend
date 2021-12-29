@@ -1,11 +1,11 @@
 import TestForm from './TestForm';
 import TestItems from './TestItems';
 
-const Tests = ({uri}) => {
+const Tests = () => {
 	return (
 		<div>
-			<TestForm uri={uri}/>
-			<TestItems uri={uri}/>
+			<TestForm />
+			<TestItems />
 		</div>
 	);
 };

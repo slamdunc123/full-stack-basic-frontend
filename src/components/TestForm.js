@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import uri from '../domain'
 
-const TestForm = ({uri}) => {
+const TestForm = () => {
 	const [formData, setFormData] = useState(null);
 
 	const handleChange = (e) => {
