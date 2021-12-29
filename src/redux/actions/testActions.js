@@ -1,9 +1,9 @@
 import { GET_TESTS } from './types';
-import uri from '../../domain'
+// import uri from '../../domain'
 
 //get tests
 
-export const getTests = () => (dispatch) => {
+export const getTests = (uri) => (dispatch) => {
 	fetch(`${uri}/api/tests`)
 		.then((res) => res.json())
 		.then((data) => {

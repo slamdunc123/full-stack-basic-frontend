@@ -18,7 +18,7 @@ const TestItems = () => {
 		});
 	};
 	useEffect(() => {
-		dispatch(getTests());
+		dispatch(getTests(uri));
 	}, [dispatch]);
 
 	
