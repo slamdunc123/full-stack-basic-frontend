@@ -18,7 +18,7 @@ const TestItems = () => {
 		});
 	};
 	useEffect(() => {
-		dispatch(getTests(uri));
+		dispatch(getTests());
 	}, [dispatch]);
 
 	
@@ -26,7 +26,7 @@ const TestItems = () => {
 		<div>
 			TestItems
 			<ul style={{ listStyleType: 'none' }}>
-				{!tests
+				{!tests || tests.length < 1
 					? 'Loading...'
 					: tests.map((item) => (
 							<div key={item._id} style={{ display: 'flex' }}>
