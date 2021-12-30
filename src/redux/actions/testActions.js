@@ -1,4 +1,4 @@
-import { DELETE_TEST, GET_TESTS } from './types';
+import { GET_TESTS, CREATE_TEST, DELETE_TEST } from './types';
 import axios from 'axios';
 import uri from '../../domain'
 
@@ -17,6 +17,32 @@ export const getTests = () => async (dispatch) => {
 		console.error(err.error);
 	}
 };
+
+//create test
+
+export const createTest = (formData) => async (dispatch) => {
+    console.log('createTest action fired');
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    const body = {...formData}
+    console.log(body);
+
+    try {
+        const res = await axios.post(`${uri}/api/tests`, body, config)
+        console.log(res.data.test);
+
+        dispatch({
+            type: CREATE_TEST,
+            payload: res.data.test
+        })
+    } catch (err) {
+        console.log(err.error);
+        
+    }
+}
 
 //delete test by id
 
