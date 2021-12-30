@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTests } from '../redux/actions/testActions';
-import uri from '../domain'
+import { getTests, deleteTest } from '../redux/actions/testActions';
 
 const TestItems = () => {
     const dispatch = useDispatch()
@@ -9,14 +8,9 @@ const TestItems = () => {
     const tests = useSelector((state) => state.testReducer.tests)
 
 	const handleDeleteTestItem = (id) => {
-		fetch(`${uri}/api/tests/${id}`, {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			// body: JSON.stringify(YOUR_ADDITIONAL_DATA)  //if you do not want to send any addional data,  replace the complete JSON.stringify(YOUR_ADDITIONAL_DATA) with null
-		});
+        dispatch(deleteTest(id))
 	};
+    
 	useEffect(() => {
 		dispatch(getTests());
 	}, [dispatch]);
