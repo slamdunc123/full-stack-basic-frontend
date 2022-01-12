@@ -1,19 +1,4 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getTests, deleteTest } from '../redux/actions/testActions';
-
-const TestItems = () => {
-	const dispatch = useDispatch();
-	const tests = useSelector((state) => state.testReducer.tests);
-
-	const handleDeleteTestItem = (id) => {
-		dispatch(deleteTest(id));
-	};
-
-	useEffect(() => {
-		dispatch(getTests());
-	}, [dispatch]);
-
+const TestItems = ({ tests, handleDeleteTestItem, handleEditTestItem }) => {
 	return (
 		<div>
 			TestItems
@@ -27,7 +12,14 @@ const TestItems = () => {
 										handleDeleteTestItem(item._id)
 									}
 								>
-									x
+									delete
+								</button>
+								<button
+									onClick={() =>
+										handleEditTestItem(item)
+									}
+								>
+								edit
 								</button>
 							</div>
 					  ))

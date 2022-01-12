@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createTest } from '../redux/actions/testActions';
 
-const TestForm = () => {
+const TestFormAdd = () => {
     const dispatch =  useDispatch()
 	const [formData, setFormData] = useState({
         name: ''
@@ -12,7 +12,7 @@ const TestForm = () => {
 		setFormData({ [e.target.name]: e.target.value });
 	};
 
-	const handleSubmit = (e) => {
+	const handleAddTest = (e) => {
 		e.preventDefault();
         dispatch(createTest(formData))
         setFormData({name: ''})
@@ -20,13 +20,12 @@ const TestForm = () => {
 	return (
 		<div>
 			TestForm
-            {console.log(formData)}
 			<form>
-				<input type='text' name='name' value={ formData.name} onChange={handleChange} />
-				<button onClick={handleSubmit}>Submit</button>
+				<input type='text' name='name' value={formData.name} onChange={handleChange} />
+				<button onClick={handleAddTest}>Add</button>
 			</form>
 		</div>
 	);
 };
 
-export default TestForm;
+export default TestFormAdd;
