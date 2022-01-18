@@ -1,4 +1,4 @@
-const TestItems = ({ tests, handleDeleteTestItem, handleEditTestItem }) => {
+const TestItems = ({ tests, isEditing, handleDeleteOnClick, handleEditOnClick }) => {
 	return (
 		<div>
 			TestItems
@@ -9,15 +9,17 @@ const TestItems = ({ tests, handleDeleteTestItem, handleEditTestItem }) => {
 								<li>{item.name}</li>
 								<button
 									onClick={() =>
-										handleDeleteTestItem(item._id)
+										handleDeleteOnClick(item._id)
 									}
+                                    disabled = {isEditing}
 								>
 									delete
 								</button>
 								<button
 									onClick={() =>
-										handleEditTestItem(item)
+										handleEditOnClick(item)
 									}
+                                    disabled = {isEditing}
 								>
 								edit
 								</button>

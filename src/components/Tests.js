@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react';
 import TestFormAdd from './TestFormAdd';
 import TestItems from './TestItems';
-import { getTests, deleteTest, updateIsEditing } from '../redux/actions/testActions';
+import {
+	getTests,
+	createTest,
+	deleteTest,
+	updateTest,
+	updateIsEditing,
+} from '../redux/actions/testActions';
 import { useDispatch, useSelector } from 'react-redux';
 import TestFormUpdate from './TestFormUpdate';
 
@@ -10,17 +16,34 @@ const Tests = () => {
 	const tests = useSelector((state) => state.testReducer.tests);
 	const isEditing = useSelector((state) => state.testReducer.isEditing);
 	const [editedItem, setEditedItem] = useState({
-        id: '',
-        name: ''
-    });
+		id: '',
+		name: '',
+	});
+	const [activeEditButton, setActiveEditButton] = useState(null);
 
-	const handleDeleteTestItem = (id) => {
+	const handleCreateTest = (formData) => {
+		dispatch(createTest(formData));
+		dispatch(updateIsEditing(false));
+	};
+
+	const handleDeleteOnClick = (id) => {
 		dispatch(deleteTest(id));
 	};
-	const handleEditTestItem = (item) => {
+	const handleEditOnClick = (item) => {
 		dispatch(updateIsEditing(true));
-		setEditedItem({id:item._id, name: item.name});
+		setEditedItem({ id: item._id, name: item.name });
+		setActiveEditButton(item._id);
 	};
+
+	const handleUpdateTest = (formData) => {
+		dispatch(updateTest(editedItem.id, formData));
+		dispatch(updateIsEditing(false));
+		setEditedItem({ id: '', name: '' });
+	};
+
+    const handleResetEditedItem = () => {
+        setEditedItem({ id: '', name: '' });
+    }
 
 	useEffect(() => {
 		dispatch(getTests());
@@ -29,14 +52,20 @@ const Tests = () => {
 	return (
 		<div>
 			{!isEditing ? (
-				<TestFormAdd />
+				<TestFormAdd handleCreateTest={handleCreateTest} handleResetEditedItem={handleResetEditedItem}/>
 			) : (
-				<TestFormUpdate editedItem={editedItem} />
+				<TestFormUpdate
+					editedItem={editedItem}
+					handleUpdateTest={handleUpdateTest}
+                    handleResetEditedItem={handleResetEditedItem}
+				/>
 			)}
 			<TestItems
+				isEditing={isEditing}
 				tests={tests}
-				handleDeleteTestItem={handleDeleteTestItem}
-				handleEditTestItem={handleEditTestItem}
+				activeEditButton={activeEditButton}
+				handleDeleteOnClick={handleDeleteOnClick}
+				handleEditOnClick={handleEditOnClick}
 			/>
 		</div>
 	);

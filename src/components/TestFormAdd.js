@@ -1,28 +1,49 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createTest } from '../redux/actions/testActions';
 
-const TestFormAdd = () => {
-    const dispatch =  useDispatch()
+const TestFormAdd = ({ handleCreateTest, handleResetEditedItem }) => {
 	const [formData, setFormData] = useState({
-        name: ''
-    });
+		name: '',
+	});
 
 	const handleChange = (e) => {
 		setFormData({ [e.target.name]: e.target.value });
 	};
 
-	const handleAddTest = (e) => {
+    const handleAddOnClick = (e) => {
+        e.preventDefault();
+        handleCreateTest(formData)
+        setFormData({ name: '' })
+    }
+
+	const handleResetOnClick = (e) => {
 		e.preventDefault();
-        dispatch(createTest(formData))
-        setFormData({name: ''})
+		setFormData({ name: '' });
+        handleResetEditedItem()
 	};
 	return (
 		<div>
 			TestForm
 			<form>
-				<input type='text' name='name' value={formData.name} onChange={handleChange} />
-				<button onClick={handleAddTest}>Add</button>
+				<input
+					type='text'
+					name='name'
+					value={formData.name}
+					onChange={handleChange}
+				/>
+				<button
+					type='submit'
+					onClick={handleAddOnClick}
+					disabled={formData.name === ''}
+				>
+					Add
+				</button>
+				<button
+					type='button'
+					onClick={handleResetOnClick}
+					disabled={formData.name === ''}
+				>
+					Cancel
+				</button>
 			</form>
 		</div>
 	);

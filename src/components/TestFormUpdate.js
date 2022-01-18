@@ -1,27 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateIsEditing, updateTest } from '../redux/actions/testActions';
+import { updateIsEditing } from '../redux/actions/testActions';
 
-const TestFormUpdate = ({ editedItem }) => {
-	// console.log(
-	// 	'slamdunc ~ file: TestFormUpdate.js ~ line 6 ~ TestFormUpdate ~ editedItemId',
-	// 	editedItem
-	// );
+const TestFormUpdate = ({ editedItem, handleUpdateTest, handleResetEditedItem }) => {
+	
 	const dispatch = useDispatch();
 	const [formData, setFormData] = useState({
-		name: editedItem.name,
+		name: '',
 	});
 
 	const handleChange = (e) => {
 		setFormData({ [e.target.name]: e.target.value });
 	};
 
-	const handleUpdateTest = (e) => {
-		e.preventDefault();
-		dispatch(updateTest(editedItem.id, formData));
+    const handleUpdateOnClick = (e) => {
+        e.preventDefault();
+        handleUpdateTest(formData)
+        setFormData({ name: '' })
+    }
+
+    const handleResetOnClick = (e) => {
+        e.preventDefault()
         dispatch(updateIsEditing(false))
-		setFormData({ name: '' });
-	};
+        setFormData({name: ''})
+        handleResetEditedItem()
+    }
+
+    useEffect(() => {
+        setFormData({name: editedItem.name})
+     
+    }, [editedItem.name])
 	return (
 		<div>
 			TestForm
@@ -32,7 +40,8 @@ const TestFormUpdate = ({ editedItem }) => {
 					value={formData.name}
 					onChange={handleChange}
 				/>
-				<button onClick={handleUpdateTest}>Update</button>
+				<button type='submit' onClick={handleUpdateOnClick}>Update</button>
+				<button type='button' onClick={handleResetOnClick}>Cancel</button>
 			</form>
 		</div>
 	);
