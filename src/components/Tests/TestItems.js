@@ -1,3 +1,5 @@
+import React from 'react'
+
 const TestItems = ({
 	title,
 	tests,
@@ -8,7 +10,7 @@ const TestItems = ({
 	return (
 		<div>
 			<h3>{title}</h3>
-			{tests.length > 0 ? (
+			{tests && tests.length > 0 ? (
 				<ul style={{ listStyleType: 'none' }}>
 					{tests.map((item) => (
 						<div key={item._id} style={{ display: 'flex' }}>

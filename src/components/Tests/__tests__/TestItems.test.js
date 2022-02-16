@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import TestItems from '../TestItems';
 
@@ -29,4 +30,3 @@ test('should render li elements', () => {
 	const liElements = screen.getAllByRole('listitem');
 	expect(liElements).toHaveLength(2);
 });
-

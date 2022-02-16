@@ -1,3 +1,4 @@
+import React from 'react'
 import './App.css';
 import Tests from './components/Tests/Tests';
 
