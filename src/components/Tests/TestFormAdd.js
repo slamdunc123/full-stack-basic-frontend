@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const TestFormAdd = ({ handleCreateTest, handleResetEditedItem }) => {
+const TestFormAdd = ({ title, handleCreateTest, handleResetEditedItem }) => {
 	const [formData, setFormData] = useState({
 		name: '',
 	});
@@ -22,7 +22,7 @@ const TestFormAdd = ({ handleCreateTest, handleResetEditedItem }) => {
 	};
 	return (
 		<div>
-			TestForm
+            <h3>{title}</h3>
 			<form>
 				<input
 					type='text'

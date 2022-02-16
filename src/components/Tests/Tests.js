@@ -7,7 +7,7 @@ import {
 	deleteTest,
 	updateTest,
 	updateIsEditing,
-} from '../redux/actions/testActions';
+} from '../../redux/actions/testActions';
 import { useDispatch, useSelector } from 'react-redux';
 import TestFormUpdate from './TestFormUpdate';
 
@@ -41,26 +41,32 @@ const Tests = () => {
 		setEditedItem({ id: '', name: '' });
 	};
 
-    const handleResetEditedItem = () => {
-        setEditedItem({ id: '', name: '' });
-    }
+	const handleResetEditedItem = () => {
+		setEditedItem({ id: '', name: '' });
+	};
 
 	useEffect(() => {
 		dispatch(getTests());
 	}, [dispatch]);
 
 	return (
-		<div>
+		<div style={{display: 'flex'}}>
 			{!isEditing ? (
-				<TestFormAdd handleCreateTest={handleCreateTest} handleResetEditedItem={handleResetEditedItem}/>
+				<TestFormAdd
+					title={'Add Test'}
+					handleCreateTest={handleCreateTest}
+					handleResetEditedItem={handleResetEditedItem}
+				/>
 			) : (
 				<TestFormUpdate
+					title={'Update Test'}
 					editedItem={editedItem}
 					handleUpdateTest={handleUpdateTest}
-                    handleResetEditedItem={handleResetEditedItem}
+					handleResetEditedItem={handleResetEditedItem}
 				/>
 			)}
 			<TestItems
+				title={'Test Items'}
 				isEditing={isEditing}
 				tests={tests}
 				activeEditButton={activeEditButton}
